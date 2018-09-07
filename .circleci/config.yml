@@ -43,14 +43,19 @@ pytorch_linux_build_defaults: &pytorch_linux_build_defaults
         export GIT_MERGE_TARGET=`git log -n 1 --pretty=format:"%H" origin/master`
         echo "GIT_MERGE_TARGET: " ${GIT_MERGE_TARGET}
         export GIT_COMMIT=${CIRCLE_SHA1}
-        echo "GIT_COMMIT: " ${GIT_COMMIT}
+        echo "GIT_COMMIT: "       ${GIT_COMMIT}
 
         git config core.sparsecheckout
+        echo "here1"
         git checkout -f ${GIT_COMMIT}
+        echo "here2"
         git reset --hard ${GIT_COMMIT}
+        echo "here3"
         git merge --no-ff ${GIT_MERGE_TARGET}
+        echo "here4"
 
         git log -2
+        echo "here5"
 
         export IN_CIRCLECI=1
         export SCCACHE_BUCKET=ossci-compiler-cache-circleci-v2
